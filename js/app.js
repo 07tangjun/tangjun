@@ -85,28 +85,22 @@ const animateSkills = () => {
 window.addEventListener('scroll', animateSkills);
 window.addEventListener('load', animateSkills);
 
-// Intersection Observer for Fade-in Animations
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('fade-in');
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
-      observer.unobserve(entry.target);
-    }
+// Fade-in Animations - Simplified version
+setTimeout(() => {
+  const elementsToAnimate = document.querySelectorAll('.skill-category, .project-card, .stat-item');
+  elementsToAnimate.forEach((el, index) => {
+    setTimeout(() => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, index * 100);
   });
-}, observerOptions);
+}, 300);
 
+// Initialize elements for animation
 document.querySelectorAll('.skill-category, .project-card, .stat-item').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  observer.observe(el);
 });
 
 // Contact Form Handling
@@ -152,7 +146,9 @@ function showNotification(message, type = 'info') {
   setTimeout(() => {
     notification.style.animation = 'slideOut 0.3s ease';
     setTimeout(() => {
-      document.body.removeChild(notification);
+      if (document.body.contains(notification)) {
+        document.body.removeChild(notification);
+      }
     }, 300);
   }, 3000);
 }
