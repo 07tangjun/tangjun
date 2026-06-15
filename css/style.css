@@ -690,11 +690,6 @@ section {
     content: " (" attr(title) ")";
   }
 
-  a[href^="#"]::after,
-  a[href^="javascript:"]::after {
-    content: "";
-  }
-
   pre {
     white-space: pre-wrap !important;
   }
